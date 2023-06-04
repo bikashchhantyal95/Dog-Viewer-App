@@ -14,6 +14,7 @@ enum DogBreed_Errors: Error{
 class DogBreedAPI_Helper{
     private static var baseURLString = "https://dog.ceo/api/breeds/list/all";
     
+    //fetch the dog breed from the given url
     public static func fetch(urlString: String) async throws -> Data{
         guard
             let url = URL(string: urlString)
@@ -27,9 +28,15 @@ class DogBreedAPI_Helper{
         return data
     }
     
-    public static func fetchDogBreed() async throws -> {
-        let data = fetch(urlString: baseURLString)
+    //decode the api data
+    public static func fetchDogBreed() async throws -> DogBreedCodable{
+        let data = try await fetch(urlString: baseURLString)
         
+        let decoder = JSONDecoder()
+        
+        let dogBreed = try decoder.decode(DogBreedCodable.self, from: data)
+        
+        return dogBreed
         
     }
 }

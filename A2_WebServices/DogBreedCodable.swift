@@ -7,4 +7,11 @@
 
 import Foundation
 
+struct DogBreedCodable: Codable{
+    var results: [DogBreed]
+}
+
+struct DogBreed: Codable{
+    var breedName: String
+}
 
