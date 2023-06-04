@@ -7,11 +7,8 @@
 
 import Foundation
 
+//codable class for decoding the api data
 struct DogBreedCodable: Codable{
-    var results: [DogBreed]
-}
-
-struct DogBreed: Codable{
-    var breedName: String
+    var message: [String: [String]]
 }
 

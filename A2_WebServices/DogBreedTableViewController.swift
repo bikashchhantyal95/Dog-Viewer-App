@@ -8,7 +8,9 @@
 import UIKit
 
 class DogBreedTableViewController: UITableViewController {
-
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +19,18 @@ class DogBreedTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        Task{
+            do{
+                let dogBreed = try await DogBreedAPI_Helper.fetchDogBreed()
+                print(dogBreed.message.count)
+                print(dogBreed.message)
+                print(dogBreed.message.first!)
+            }catch{
+                preconditionFailure("Program fail with error message \(error)")
+            }
+        }
+        
     }
 
     // MARK: - Table view data source
