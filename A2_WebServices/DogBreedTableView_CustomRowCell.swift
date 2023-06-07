@@ -9,6 +9,11 @@ import UIKit
 
 class DogBreedTableView_CustomRowCell: UITableViewCell {
 
+    @IBOutlet weak var breedNameLabel: UILabel!
+    
+    @IBOutlet weak var subBreedNameLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
