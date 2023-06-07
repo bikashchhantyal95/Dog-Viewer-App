@@ -9,7 +9,9 @@ import UIKit
 
 class DogBreedTableViewController: UITableViewController {
     
-    var dogBreed : [String: [String]] = [:]
+    var dogBreeds: DogBreedCodable!
+    var dogBreedNames: [String] = []
+    var dogBreedNamesWithoutSubBreed :[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +24,20 @@ class DogBreedTableViewController: UITableViewController {
         
         Task{
             do{
-                let dogBreed = try await DogBreedAPI_Helper.fetchDogBreed()
-                print(dogBreed.message.count)
-                print(dogBreed.message)
-                print(dogBreed.message.first!)
+                dogBreeds = try await DogBreedAPI_Helper.fetchDogBreed()
+//                print(dogBreed.message.count)
+                dogBreedNames = Array(dogBreeds.message.keys).sorted()
+                dogBreedNamesWithoutSubBreed = dogBreedNames.filter{
+                    dogBreedName in let subBreeds = dogBreeds.message[dogBreedName] ?? []
+                    return subBreeds.isEmpty
+                }
+                
+                
+//                print(dogBreedNames)
+                print("============================")
+//                print(dogBreedNamesWithoutSubBreed)
+//                print(dogBreed.message.first!)
+                tableView.reloadData()
             }catch{
                 preconditionFailure("Program fail with error message \(error)")
             }
@@ -37,23 +49,39 @@ class DogBreedTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return dogBreedNames.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        let breedName = dogBreedNames[section]
+        let subBreeds = dogBreeds.message[breedName] ?? []
+        print(breedName)
+        return subBreeds.isEmpty ? 1 : subBreeds.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "breedName", for: indexPath) as! DogBreedTableView_CustomRowCell
+        
+        let breedName = dogBreedNames[indexPath.section]
+//        print(breedName)
+        let subBreeds = dogBreeds.message[breedName] ?? []
+        
+        if subBreeds.isEmpty{
+            cell.breedNameLabel.text = breedName
+            cell.subBreedNameLabel.text = ""
+        }else{
+            let subBreed = subBreeds[indexPath.row]
+            cell.breedNameLabel.text = breedName
+            cell.subBreedNameLabel.text = subBreed
+        }
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

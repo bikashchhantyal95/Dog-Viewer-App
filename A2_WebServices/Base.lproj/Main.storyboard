@@ -17,32 +17,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="breedName" id="drG-40-rWl" customClass="DogBreedTableView_CustomRowCell" customModule="A2_WebServices" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="breedName" rowHeight="80" id="drG-40-rWl" customClass="DogBreedTableView_CustomRowCell" customModule="A2_WebServices" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="drG-40-rWl" id="ePo-1A-bRE">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Breed Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADA-1v-JKL">
-                                            <rect key="frame" x="159" y="10" width="129" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvV-3s-YbE">
-                                            <rect key="frame" x="20" y="10" width="99" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvV-3s-YbE">
+                                            <rect key="frame" x="20" y="10" width="99" height="60"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Breed Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADA-1v-JKL">
+                                            <rect key="frame" x="127" y="11" width="129" height="58"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="ADA-1v-JKL" secondAttribute="trailing" constant="105" id="N8V-Sa-wsz"/>
+                                        <constraint firstItem="ADA-1v-JKL" firstAttribute="centerY" secondItem="ePo-1A-bRE" secondAttribute="centerY" id="7Ve-ax-GN7"/>
+                                        <constraint firstAttribute="trailing" secondItem="ADA-1v-JKL" secondAttribute="trailing" constant="137" id="N8V-Sa-wsz"/>
                                         <constraint firstItem="UvV-3s-YbE" firstAttribute="top" secondItem="ePo-1A-bRE" secondAttribute="topMargin" constant="-1" id="TPg-Rd-zar"/>
-                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="baseline" secondItem="ADA-1v-JKL" secondAttribute="baseline" id="kJo-g2-yPm"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="baseline" secondItem="ADA-1v-JKL" secondAttribute="baseline" constant="1" id="kJo-g2-yPm"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="centerY" secondItem="ePo-1A-bRE" secondAttribute="centerY" id="lAB-hV-gnU"/>
                                         <constraint firstItem="UvV-3s-YbE" firstAttribute="leading" secondItem="ePo-1A-bRE" secondAttribute="leadingMargin" id="mOu-5z-dI0"/>
-                                        <constraint firstItem="ADA-1v-JKL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UvV-3s-YbE" secondAttribute="trailing" symbolic="YES" id="mPd-m3-Ygf"/>
+                                        <constraint firstItem="ADA-1v-JKL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UvV-3s-YbE" secondAttribute="trailing" constant="8" symbolic="YES" id="mPd-m3-Ygf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
