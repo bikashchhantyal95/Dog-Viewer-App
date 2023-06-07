@@ -9,7 +9,7 @@ import UIKit
 
 class DogBreedTableViewController: UITableViewController {
     
-   
+    var dogBreed : [String: [String]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
