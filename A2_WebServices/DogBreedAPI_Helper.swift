@@ -46,4 +46,19 @@ class DogBreedAPI_Helper{
             
             return dogBreed
         }
+    
+    public static func fetchDogBreedImage(breedName: String, subBreedName: String?=nil) async throws -> DogBreedImageCodable{
+         var urlString = "breed/\(breedName)/images/random"
+         if let subBreedname = subBreedName{
+             urlString = "breed/\(breedName)/\(subBreedname)/images/random"
+         }
+ //        print(urlString)
+         let data = try await fetch(urlString: baseURLString, urlParams: urlString)
+         let decoder = JSONDecoder()
+         
+         //decodes json data
+         let dogBreedImage = try decoder.decode(DogBreedImageCodable.self, from: data)
+         
+         return dogBreedImage
+     }
 }
