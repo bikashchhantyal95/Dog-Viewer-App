@@ -14,12 +14,16 @@ enum DogBreed_Errors: Error{
 
 class DogBreedAPI_Helper{
     //stores url
-    private static var baseURLString = "https://dog.ceo/api/breeds/list/all";
+    private static var baseURLString = "https://dog.ceo/api/";
     
     //fetches data from the given url
-    public static func fetch(urlString: String) async throws -> Data{
+    public static func fetch(urlString: String, urlParams: String? = nil) async throws -> Data{
+        var urlStringWithparams = urlString
+        if let urlParams = urlParams{
+            urlStringWithparams += urlParams
+        }
         guard
-            let url = URL(string: urlString)
+            let url = URL(string: urlStringWithparams)
         else{
             throw DogBreed_Errors.CannotConvertURL
         }
@@ -32,14 +36,14 @@ class DogBreedAPI_Helper{
     }
     
     //decode the api data
-    public static func fetchDogBreed() async throws -> DogBreedCodable{
-        let data = try await fetch(urlString: baseURLString)
-        
-        let decoder = JSONDecoder()
-        
-        //decodes json data
-        let dogBreed = try decoder.decode(DogBreedCodable.self, from: data)
-        
-        return dogBreed
-    }
+        public static func fetchDogBreed() async throws -> DogBreedCodable{
+            let data = try await fetch(urlString: baseURLString, urlParams: "breeds/list/all")
+            
+            let decoder = JSONDecoder()
+            
+            //decodes json data
+            let dogBreed = try decoder.decode(DogBreedCodable.self, from: data)
+            
+            return dogBreed
+        }
 }
