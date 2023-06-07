@@ -13,6 +13,7 @@ class DogBreedTableView_CustomRowCell: UITableViewCell {
     
     @IBOutlet weak var subBreedNameLabel: UILabel!
     
+    @IBOutlet weak var dogBreedImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

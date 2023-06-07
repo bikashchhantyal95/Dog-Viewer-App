@@ -12,7 +12,8 @@ class DogBreedTableViewController: UITableViewController {
     var dogBreeds: DogBreedCodable!
     var dogBreedNames: [String] = []
     var dogBreedNamesWithoutSubBreed :[String] = []
-    
+    var dogBreedImages: DogBreedImageCodable!
+    var dogBreedImg :[String: String] = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,18 +26,28 @@ class DogBreedTableViewController: UITableViewController {
         Task{
             do{
                 dogBreeds = try await DogBreedAPI_Helper.fetchDogBreed()
-//                print(dogBreed.message.count)
                 dogBreedNames = Array(dogBreeds.message.keys).sorted()
                 dogBreedNamesWithoutSubBreed = dogBreedNames.filter{
                     dogBreedName in let subBreeds = dogBreeds.message[dogBreedName] ?? []
                     return subBreeds.isEmpty
                 }
                 
-                
-//                print(dogBreedNames)
-                print("============================")
-//                print(dogBreedNamesWithoutSubBreed)
-//                print(dogBreed.message.first!)
+                for breedName in dogBreedNames{
+                    let subBreeds = dogBreeds.message[breedName] ?? []
+                    if subBreeds.isEmpty{
+                        dogBreedImages = try await DogBreedAPI_Helper.fetchDogBreedImage(breedName: breedName)
+                        let imgURLString = dogBreedImages.message
+                        dogBreedImg[breedName] = imgURLString
+                    }else{
+                        for subBreed in subBreeds{
+                            dogBreedImages = try await DogBreedAPI_Helper.fetchDogBreedImage(breedName: breedName, subBreedName: subBreed)
+                            let imgURLString = dogBreedImages.message
+                            dogBreedImg["\(breedName)-\(subBreed)"] = imgURLString
+                        }
+                    }
+                   
+                }
+                print(dogBreedImg)
                 tableView.reloadData()
             }catch{
                 preconditionFailure("Program fail with error message \(error)")
@@ -65,16 +76,40 @@ class DogBreedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "breedName", for: indexPath) as! DogBreedTableView_CustomRowCell
         
         let breedName = dogBreedNames[indexPath.section]
-//        print(breedName)
+
         let subBreeds = dogBreeds.message[breedName] ?? []
         
         if subBreeds.isEmpty{
             cell.breedNameLabel.text = breedName
             cell.subBreedNameLabel.text = ""
+            if let imgURLString = dogBreedImg[breedName], let imgURl = URL(string: imgURLString){
+                let task = URLSession.shared.dataTask(with: imgURl){
+                    (data, response, error) in if let data = data,
+                                                  let image = UIImage(data: data){
+                        DispatchQueue.main.async {
+                            cell.dogBreedImageView.image = image
+                            cell.dogBreedImageView.layer.cornerRadius = 20
+                        }
+                    }
+                }
+                task.resume()
+            }
         }else{
             let subBreed = subBreeds[indexPath.row]
             cell.breedNameLabel.text = breedName
             cell.subBreedNameLabel.text = subBreed
+            if let imgURLString = dogBreedImg["\(breedName)-\(subBreed)"], let imgURl = URL(string: imgURLString){
+                let task = URLSession.shared.dataTask(with: imgURl){
+                    (data, response, error) in if let data = data,
+                                                  let image = UIImage(data: data){
+                        DispatchQueue.main.async {
+                            cell.dogBreedImageView.image = image
+                            cell.dogBreedImageView.layer.cornerRadius = 20
+                        }
+                    }
+                }
+                task.resume()
+            }
         }
 
         // Configure the cell...
@@ -90,7 +125,9 @@ class DogBreedTableViewController: UITableViewController {
         return true
     }
     */
-
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
