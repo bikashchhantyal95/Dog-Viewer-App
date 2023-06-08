@@ -65,9 +65,14 @@ class DogBreedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         let breedName = dogBreedNames[section]
+        
+        //retrieve the subbreeds with current breed name
+        // value will be nil if no subbreeds
         let subBreeds = dogBreeds.message[breedName] ?? []
-//        print(breedName)
+        // return if subbreed is empty
+        // otherwise return count of sub-breed
         return subBreeds.isEmpty ? 1 : subBreeds.count
+        
     }
 
     
