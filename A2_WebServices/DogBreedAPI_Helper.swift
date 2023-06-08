@@ -52,13 +52,15 @@ class DogBreedAPI_Helper{
          if let subBreedname = subBreedName{
              urlString = "breed/\(breedName)/\(subBreedname)/images/random"
          }
- //        print(urlString)
+        
+        // fetch data from api
          let data = try await fetch(urlString: baseURLString, urlParams: urlString)
          let decoder = JSONDecoder()
          
          //decodes json data
          let dogBreedImage = try decoder.decode(DogBreedImageCodable.self, from: data)
          
+        //return codable data of image
          return dogBreedImage
      }
 }

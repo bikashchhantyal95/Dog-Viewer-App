@@ -47,7 +47,6 @@ class DogBreedTableViewController: UITableViewController {
                     }
                    
                 }
-//                print(dogBreedImg)
                 tableView.reloadData()
             }catch{
                 preconditionFailure("Program fail with error message \(error)")
@@ -79,6 +78,8 @@ class DogBreedTableViewController: UITableViewController {
 
         let subBreeds = dogBreeds.message[breedName] ?? []
         
+        cell.dogBreedImageView.layer.cornerRadius = 20
+        
         if subBreeds.isEmpty{
             cell.breedNameLabel.text = breedName
             cell.subBreedNameLabel.text = ""
@@ -88,7 +89,7 @@ class DogBreedTableViewController: UITableViewController {
                         let (data, _) = try await URLSession.shared.data(from: imgURL)
                         if let image = UIImage(data: data){
                             cell.dogBreedImageView.image = image
-                            cell.dogBreedImageView.layer.cornerRadius = 20
+//                            cell.dogBreedImageView.layer.cornerRadius = 20
                         }
                     }catch{
                             preconditionFailure("Failed to get image of \(breedName): \(error)")
@@ -105,7 +106,8 @@ class DogBreedTableViewController: UITableViewController {
                         let (data, _) = try await URLSession.shared.data(from: imgURL)
                         if let image = UIImage(data: data){
                             cell.dogBreedImageView.image = image
-                            cell.dogBreedImageView.layer.cornerRadius = 20
+                            
+                            
                         }
                     }catch{
                         preconditionFailure("Failed to get image of \(breedName)-\(subBreed): \(error)")
@@ -166,6 +168,19 @@ class DogBreedTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        let index = tableView.indexPathForSelectedRow!.section
+                let breedName = dogBreedNames[index]
+                let subBreeds = dogBreeds.message[breedName] ?? []
+                var selectedBreed: String
+                if  subBreeds.isEmpty{
+                    selectedBreed = breedName
+                }else{
+                    let index = tableView.indexPathForSelectedRow!.row
+                    let subBreed = subBreeds[index]
+                    selectedBreed = "\(breedName)-\(subBreed)"
+                }
+        let dst = segue.destination as! DogBreed_ViewController
+        dst.breedName = selectedBreed
     }
     
 
