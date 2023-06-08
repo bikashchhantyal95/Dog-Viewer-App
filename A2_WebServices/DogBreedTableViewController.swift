@@ -47,7 +47,7 @@ class DogBreedTableViewController: UITableViewController {
                     }
                    
                 }
-                print(dogBreedImg)
+//                print(dogBreedImg)
                 tableView.reloadData()
             }catch{
                 preconditionFailure("Program fail with error message \(error)")
@@ -67,7 +67,7 @@ class DogBreedTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         let breedName = dogBreedNames[section]
         let subBreeds = dogBreeds.message[breedName] ?? []
-        print(breedName)
+//        print(breedName)
         return subBreeds.isEmpty ? 1 : subBreeds.count
     }
 
@@ -82,33 +82,35 @@ class DogBreedTableViewController: UITableViewController {
         if subBreeds.isEmpty{
             cell.breedNameLabel.text = breedName
             cell.subBreedNameLabel.text = ""
-            if let imgURLString = dogBreedImg[breedName], let imgURl = URL(string: imgURLString){
-                let task = URLSession.shared.dataTask(with: imgURl){
-                    (data, response, error) in if let data = data,
-                                                  let image = UIImage(data: data){
-                        DispatchQueue.main.async {
+            if let imgURLString = dogBreedImg[breedName], let imgURL = URL(string: imgURLString){
+                Task{
+                    do{
+                        let (data, _) = try await URLSession.shared.data(from: imgURL)
+                        if let image = UIImage(data: data){
                             cell.dogBreedImageView.image = image
                             cell.dogBreedImageView.layer.cornerRadius = 20
                         }
+                    }catch{
+                            preconditionFailure("Failed to get image of \(breedName): \(error)")
                     }
                 }
-                task.resume()
             }
         }else{
             let subBreed = subBreeds[indexPath.row]
             cell.breedNameLabel.text = breedName
             cell.subBreedNameLabel.text = subBreed
-            if let imgURLString = dogBreedImg["\(breedName)-\(subBreed)"], let imgURl = URL(string: imgURLString){
-                let task = URLSession.shared.dataTask(with: imgURl){
-                    (data, response, error) in if let data = data,
-                                                  let image = UIImage(data: data){
-                        DispatchQueue.main.async {
+            if let imgURLString = dogBreedImg["\(breedName)-\(subBreed)"], let imgURL = URL(string: imgURLString){
+                Task{
+                    do{
+                        let (data, _) = try await URLSession.shared.data(from: imgURL)
+                        if let image = UIImage(data: data){
                             cell.dogBreedImageView.image = image
                             cell.dogBreedImageView.layer.cornerRadius = 20
                         }
+                    }catch{
+                        preconditionFailure("Failed to get image of \(breedName)-\(subBreed): \(error)")
                     }
                 }
-                task.resume()
             }
         }
 
@@ -154,8 +156,10 @@ class DogBreedTableViewController: UITableViewController {
         return true
     }
     */
-
-    /*
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+ 
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -163,6 +167,6 @@ class DogBreedTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }
