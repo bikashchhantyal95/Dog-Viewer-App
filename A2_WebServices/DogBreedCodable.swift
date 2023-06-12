@@ -12,3 +12,6 @@ struct DogBreedCodable: Codable{
     var message: [String: [String]]
 }
 
+struct DogBreedImageCodable: Codable{
+    var message: String
+}

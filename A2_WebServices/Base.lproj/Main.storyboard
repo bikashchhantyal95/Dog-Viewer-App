@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9p1-VO-K3u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9p1-VO-K3u">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Dog Breeds-->
         <scene sceneID="1DF-Fx-jwW">
             <objects>
                 <tableViewController id="cYJ-kF-itj" customClass="DogBreedTableViewController" customModule="A2_WebServices" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,13 +18,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="drG-40-rWl">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="breedName" rowHeight="80" id="drG-40-rWl" customClass="DogBreedTableView_CustomRowCell" customModule="A2_WebServices" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="drG-40-rWl" id="ePo-1A-bRE">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvV-3s-YbE">
+                                            <rect key="frame" x="20" y="10" width="99" height="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Breed Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADA-1v-JKL">
+                                            <rect key="frame" x="127" y="30" width="129" height="20.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Gi-z4-CWp">
+                                            <rect key="frame" x="303" y="5" width="70" height="70"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="50"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ADA-1v-JKL" firstAttribute="leading" secondItem="UvV-3s-YbE" secondAttribute="trailing" constant="8" symbolic="YES" id="7mP-Rg-8fl"/>
+                                        <constraint firstItem="6Gi-z4-CWp" firstAttribute="trailing" secondItem="ePo-1A-bRE" secondAttribute="trailingMargin" id="9dQ-Ru-oFZ"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="leading" secondItem="ePo-1A-bRE" secondAttribute="leadingMargin" id="Fre-js-zdG"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="top" secondItem="ePo-1A-bRE" secondAttribute="topMargin" constant="-1" id="OZw-9L-I96"/>
+                                        <constraint firstItem="6Gi-z4-CWp" firstAttribute="leading" secondItem="ADA-1v-JKL" secondAttribute="trailing" constant="47" id="aW6-I2-GTV"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="centerY" secondItem="ePo-1A-bRE" secondAttribute="centerY" id="lOs-cS-ESD"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="centerY" secondItem="6Gi-z4-CWp" secondAttribute="centerY" id="ocI-K0-bO3"/>
+                                        <constraint firstItem="6Gi-z4-CWp" firstAttribute="top" secondItem="ePo-1A-bRE" secondAttribute="topMargin" constant="-6" id="zQu-3o-Zdh"/>
+                                        <constraint firstItem="UvV-3s-YbE" firstAttribute="centerY" secondItem="ADA-1v-JKL" secondAttribute="centerY" id="zT0-J1-cag"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="breedNameLabel" destination="UvV-3s-YbE" id="kZJ-gw-gJR"/>
+                                    <outlet property="dogBreedImageView" destination="6Gi-z4-CWp" id="HyT-PU-9EA"/>
+                                    <outlet property="subBreedNameLabel" destination="ADA-1v-JKL" id="emb-PW-woc"/>
+                                    <segue destination="Izy-r1-vMi" kind="show" id="oFl-x5-egx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -30,11 +71,54 @@
                             <outlet property="delegate" destination="cYJ-kF-itj" id="9dx-Ri-ixd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="FAc-qn-5gt"/>
+                    <navigationItem key="navigationItem" title="Dog Breeds" id="FAc-qn-5gt"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YZ9-7G-Q8r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-100" y="-17"/>
+            <point key="canvasLocation" x="-100" y="-17.605633802816904"/>
+        </scene>
+        <!--Dog Breed View Controller-->
+        <scene sceneID="Cio-Co-zoZ">
+            <objects>
+                <viewController id="Izy-r1-vMi" customClass="DogBreed_ViewController" customModule="A2_WebServices" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gta-rC-QC2" customClass="DogBreedTableView_CustomRowCell" customModule="A2_WebServices" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q0U-tV-qTX">
+                                <rect key="frame" x="63" y="147" width="266" height="200"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYz-aM-VxE">
+                                <rect key="frame" x="128" y="420" width="136" height="60"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Get Random Image"/>
+                                <connections>
+                                    <action selector="getRandomImage:" destination="Izy-r1-vMi" eventType="touchUpInside" id="EOk-ue-gub"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j3i-ai-c3t"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="j3i-ai-c3t" firstAttribute="bottom" secondItem="nYz-aM-VxE" secondAttribute="bottom" constant="338" id="2b1-J6-vpU"/>
+                            <constraint firstItem="nYz-aM-VxE" firstAttribute="leading" secondItem="j3i-ai-c3t" secondAttribute="leading" constant="128" id="33j-nv-1D5"/>
+                            <constraint firstItem="j3i-ai-c3t" firstAttribute="trailing" secondItem="Q0U-tV-qTX" secondAttribute="trailing" constant="64" id="KUT-Yz-zza"/>
+                            <constraint firstItem="Q0U-tV-qTX" firstAttribute="leading" secondItem="j3i-ai-c3t" secondAttribute="leading" constant="63" id="VT4-fA-noR"/>
+                            <constraint firstItem="nYz-aM-VxE" firstAttribute="top" secondItem="Q0U-tV-qTX" secondAttribute="bottom" constant="73" id="b9f-KB-3eR"/>
+                            <constraint firstItem="Q0U-tV-qTX" firstAttribute="top" secondItem="j3i-ai-c3t" secondAttribute="top" constant="44" id="oJ2-GW-t4O"/>
+                            <constraint firstItem="j3i-ai-c3t" firstAttribute="bottom" secondItem="Q0U-tV-qTX" secondAttribute="bottom" constant="471" id="to1-Of-aZ3"/>
+                            <constraint firstItem="nYz-aM-VxE" firstAttribute="centerX" secondItem="Q0U-tV-qTX" secondAttribute="centerX" id="u1Q-FA-FNM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IIA-HI-hkH"/>
+                    <connections>
+                        <outlet property="btnLabel" destination="nYz-aM-VxE" id="C1c-LL-J6M"/>
+                        <outlet property="dogImage" destination="Q0U-tV-qTX" id="0nI-te-igO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b53-GI-1YL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="826.71755725190837" y="-18.30985915492958"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uQq-Gn-Be3">
